@@ -28,7 +28,13 @@ reading from file in C#: [How to read from a text file (C# Programming Guide)](h
 
 checking for existence of file in C#: [Check if a File exists in C#](https://www.tutorialspoint.com/check-if-a-file-exists-in-chash)
 
+object-oriented programming in C#: [C# OOP](https://www.w3schools.com/cs/cs_oop.asp)
+
+C# constructors: [Constructors (C# Programming Guide)](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/constructors)
+
+
 ## Running Journal
+Thu 07/28: separated List<double> inArr and associated methods into a Dataset class
 
 Sat 07/11: implemented basic functionality: keyboard entry of data, printout of stats to console
 

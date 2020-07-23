@@ -5,4 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+  <PackageReference Include="System.Drawing-dotnet-core" Version="1.2.3" />
+  <!--
+  <Reference Include="System.Windows.Forms" version="2.0.0.0" /> 
+  -->
+  </ItemGroup>
 </Project>
