@@ -16,6 +16,7 @@ namespace CSharpStats
             dArrL.Clear();
             numPts = dArrL.Count;
         }
+
         public Dataset(List<Double> inArrL)
         {
             dArrL = inArrL;
@@ -186,7 +187,6 @@ namespace CSharpStats
 
         private static void CSharpStatsConsoleApp()
         {
-            //List<double> dArrL = new List<double>();
             Dataset ds = new Dataset();
 
             Console.Write("Enter 1 for keyboard input, 2 for file input: ");
@@ -195,11 +195,11 @@ namespace CSharpStats
             switch (mode)
             {
                 case 1:
-                    ds = GetDataPointsFromConsole();  // dArrL
+                    ds = GetDataPointsFromConsole();
                     break;
                 case 2:
-                    ds = GetDataPointsFromFile();  // dArrL
-                    PrintDataPoints(ds); // dArrL);
+                    ds = GetDataPointsFromFile();
+                    PrintDataPoints(ds);
                     break;
                 default:
                     Console.WriteLine("\nInvalid mode; exiting program.");
@@ -207,14 +207,12 @@ namespace CSharpStats
                     break;
             }
 
-            PrintOutStats(ds); // dArrL);
+            PrintOutStats(ds);
         }
 
 
-        //private static List<double> GetDataPointsFromConsole()
         private static Dataset GetDataPointsFromConsole()
         {
-            //List<double> outArrL = new List<double>();
             Dataset ds = new Dataset();
             int n = 0;
             int sLen;
@@ -230,19 +228,16 @@ namespace CSharpStats
                     break;
                 }
                 double term = Double.Parse(s);
-                //outArrL.Add(term);
                 ds.AddPoint(term);
                 n++;
             }
 
-            return ds; // outArrL;
+            return ds;
         }
 
 
-        //private static List<double> GetDataPointsFromFile()
         private static Dataset GetDataPointsFromFile()
         {
-            //List<double> outArrL = new List<double>();
             Dataset ds = new Dataset();
             int n = 0;
 
@@ -257,7 +252,6 @@ namespace CSharpStats
                     if (sLen > 0)
                     {
                         double term = Double.Parse(line);
-                        //outArrL.Add(term);
                         ds.AddPoint(term);
                         n++;
                         //Console.WriteLine("line {0}: {1}, length {2}", n, line, sLen);
@@ -269,12 +263,12 @@ namespace CSharpStats
                 Console.WriteLine("File {0} does not exist.", fName);
             }
 
-            return ds; // outArrL;
+            return ds;
         }
 
-        private static void PrintDataPoints(Dataset ds) // List<Double> inArr)
+        private static void PrintDataPoints(Dataset ds)
         {
-            int n = ds.GetNumPts(); // inArr.Count;
+            int n = ds.GetNumPts();
             
             if (n > 0)
             {
@@ -282,19 +276,19 @@ namespace CSharpStats
                 {
                     for (int i = 0; i < n; i++)
                     {
-                        Console.WriteLine("Data point {0}: {1:0.00}", i + 1, ds.GetPoint(i)); // inArr[i]);
+                        Console.WriteLine("Data point {0}: {1:0.00}", i + 1, ds.GetPoint(i));
                     }
                 }
                 else    // just print first and last five data points
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        Console.WriteLine("Data point {0}: {1:0.00}", i + 1, ds.GetPoint(i)); // inArr[i]);
+                        Console.WriteLine("Data point {0}: {1:0.00}", i + 1, ds.GetPoint(i));
                     }
                     Console.WriteLine("     ... ");
                     for (int i = n - 5; i < n; i++)
                     {
-                        Console.WriteLine("Data point {0}: {1:0.00}", i + 1, ds.GetPoint(i)); // inArr[i]);
+                        Console.WriteLine("Data point {0}: {1:0.00}", i + 1, ds.GetPoint(i));
                     }                    
                 }
             }
@@ -302,120 +296,24 @@ namespace CSharpStats
             return;
         }
 
-/*
-        private static double[] ComputeExtremes(List<Double> inArr)
+
+        private static void PrintOutStats(Dataset ds)
         {
-            double[] extremes = {0.0, 0.0};
-            int n = inArr.Count;
-            
-            if (n > 0)
-            {
-                double max = -1.0E10;
-                double min = 1.0E10;
-                double term;
-                for (int i = 0; i < n; i++)
-                {
-                    term = inArr[i];
-                    if (term > max)
-                    {
-                        max = term;
-                    }
-                    if (term < min)
-                    {
-                        min = term;
-                    }
-                }
-                extremes[0] = min;
-                extremes[1] = max;
-            }
-            
-            return extremes;
-        }
-
-
-        private static double ComputeMean(List<double> inArr)
-        {
-            double mean = 0.0;
-            int n = inArr.Count;
-            
-            if (n > 0)
-            {
-                double sum = 0.0;
-                for (int i = 0; i < n; i++)
-                {
-                    sum += inArr[i];
-                }
-                mean = sum / (double) n;
-            }
-            
-            return mean;    // returns 0 if n < 1
-        }
-
-
-        private static double ComputeStdev(List<double> inArr, double mean)
-        {
-            double stdev = 0.0;
-            int n = inArr.Count;
-            
-            if (n > 1)
-            {
-                double sum = 0.0;
-                double term = 0.0;
-                for (int i = 0; i < n; i++)
-                {
-                    term = inArr[i] - mean;
-                    sum += term * term;
-                }
-                stdev = Math.Sqrt(sum / (double) (n - 1));
-            }
-
-            return stdev;    // returns 0 if n < 2
-        }
-
-
-        private static double ComputeMedian(List<double> inArr)
-        {
-            double median = 0.0;
-            int n = inArr.Count;
-
-            if (n > 1)    // median only defined for n > 1
-            {            
-                inArr.Sort();    // first, sort the data points
-                int m0 = n / 2;
-                if (n % 2 == 0)    // if even number of pts, take average of the two middles
-                {
-                    median = (inArr[m0 - 1] + inArr[m0]) / 2.0;
-                }
-                else    // if odd number of pts, take the middle one
-                {
-                    median = inArr[m0];
-                }
-                // for (int i = 0; i < n; i++)
-                // {
-                //     Console.WriteLine("Sorted data point {0}: {1:0.00}", i + 1, inArr[i]);
-                // }
-            }
-            
-            return median;    // returns 0 if n < 2
-        }
-*/
-        private static void PrintOutStats(Dataset ds) // List<double> inArrL)
-        {
-            int n = ds.GetNumPts(); // inArrL.Count;
+            int n = ds.GetNumPts();
 
             if (n > 0)
             {
-                double[] minmax = ds.ComputeExtremes(); // ComputeExtremes(inArrL);
-                double mean = ds.ComputeMean(); // ComputeMean(inArrL);
+                double[] minmax = ds.ComputeExtremes();
+                double mean = ds.ComputeMean();
                 Console.WriteLine("\nFor {0:F0} data points: ", n);
                 Console.WriteLine("   the maximum is {0:0.00}", minmax[1]);
                 Console.WriteLine("   the minimum is {0:0.00}", minmax[0]);
                 Console.WriteLine("   the mean (average) is {0:0.00}", mean);
                 if (n > 1)
                 {
-                    double med = ds.ComputeMedian(); // ComputeMedian(inArrL);
+                    double med = ds.ComputeMedian();
                     Console.WriteLine("   the median is {0:0.00}", med);
-                    double stdev = ds.ComputeStdev(); // ComputeStdev(inArrL, mean);
+                    double stdev = ds.ComputeStdev();
                     Console.WriteLine("   the std dev is {0:0.00}", stdev);
                 }
             }
