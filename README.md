@@ -36,6 +36,8 @@ C# constructors: [Constructors (C# Programming Guide)](https://docs.microsoft.co
 ## Running Journal
 Thu 07/28: separated List<double> inArr and associated methods into a Dataset class
 
+Sun 07/12: realized that using Windows Forms in Mac OS was not worth trouble; contemplate forking repo and continuing work on WinForm version there
+
 Sat 07/11: implemented basic functionality: keyboard entry of data, printout of stats to console
 
 Sat 07/11: created new C# project, CSharpStats, and repos on local git and remote GitHub
